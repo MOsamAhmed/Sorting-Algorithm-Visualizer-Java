@@ -42,6 +42,7 @@ public class SortingPanel extends JPanel {
     private BubbleSort bubbleSort;
     private SelectionSort selectionSort;
     private InsertionSort insertionSort;
+    private QuickSort quickSort;
     
 //    Constructor
     public SortingPanel() {
@@ -389,6 +390,34 @@ public class SortingPanel extends JPanel {
         timer.start();
     }
     
+    public void quickSortAnimate() {
+//        quickSort.setArrayIndex(0);
+        quickSort.setPivotIndex(0);
+        quickSort.setStartIndex(quickSort.getPivotIndex()+1);
+        quickSort.setEndIndex(quickSort.getArray().length-1);
+        quickSort.setCompareIndex(quickSort.getArrayIndex()+1);
+//        timer is taking value in milliseconds i.e 1000ms = 1s
+        Timer timer = new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(isSorted() || isRunning==false) {
+//                    selectionSortMinIndex = Integer.MAX_VALUE;
+//                    selectionSortCompareIndex = Integer.MAX_VALUE;
+                    selectionSort.setMinIndex(Integer.MAX_VALUE);
+                    selectionSort.setCompareIndex(Integer.MAX_VALUE);
+                    isSelectionSort = false;
+                    repaint();
+                    ((Timer)e.getSource()).stop();
+                } else {
+                    if(isRunning) {
+                        selectionSort.selectionSortOnlyOneItem();
+                    }
+                }
+                repaint();
+            }
+        });
+        timer.start();
+    }
     
 //    public void bubbleSortAnimate() {
 //        bubbleSortCompareIndex = 0;
