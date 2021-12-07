@@ -46,21 +46,29 @@ public class QuickSort {
             }
             else if(startIndex>endIndex) {
                 swap(pivotIndex, endIndex);
+                int temp = pivotIndex;
+                pivotIndex = 0;
+                startIndex = pivotIndex+1;
+                endIndex = temp-1;
+                selectionSortOnlyOneItem();
+                pivotIndex = temp+1;
+                startIndex = pivotIndex+1;
+                endIndex = array.length-1;
             }
         }
         
 //        checking if nested loop ended and also incrementing nested loop pointer
-        if((pivotIndex) < (array.length-1)) {
-            pivotIndex++;
-        }
+//        if((pivotIndex) < (array.length-1)) {
+//            pivotIndex++;
+//        }
         
 //        nested loop ended and incrementing outer loop
-        else {
-            swap(startIndex, arrayIndex);
-            arrayIndex++;
-            startIndex = arrayIndex;
-            pivotIndex = arrayIndex+1;
-        }
+//        else {
+//            swap(startIndex, arrayIndex);
+//            arrayIndex++;
+//            startIndex = arrayIndex;
+//            pivotIndex = arrayIndex+1;
+//        }
     }
     
     private void swap(int i, int j) {
@@ -76,12 +84,12 @@ public class QuickSort {
         this.array = array;
     }
     
-    public int getArrayIndex() {
-        return arrayIndex;
-    }
-    public void setArrayIndex(int arrayIndex) {
-        this.arrayIndex = arrayIndex;
-    }
+//    public int getArrayIndex() {
+//        return arrayIndex;
+//    }
+//    public void setArrayIndex(int arrayIndex) {
+//        this.arrayIndex = arrayIndex;
+//    }
     
     public int getPivotIndex() {
         return pivotIndex;

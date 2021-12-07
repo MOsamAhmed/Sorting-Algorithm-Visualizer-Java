@@ -29,6 +29,7 @@ public class SortingPanel extends JPanel {
     JButton bubbleSortButton = new JButton("Bubble Sort");
     JButton selectionSortButton = new JButton("Selection Sort");
     JButton insertionSortButton = new JButton("Insertion Sort");
+    JButton quickSortButton = new JButton("Quick Sort");
     
     JTextField arraySizeTextField;
     JComboBox arraySizesComboBox;
@@ -38,6 +39,7 @@ public class SortingPanel extends JPanel {
     private boolean isBubbleSort;
     private boolean isSelectionSort;
     private boolean isInsertionSort;
+    private boolean isQuickSort;
     
     private BubbleSort bubbleSort;
     private SelectionSort selectionSort;
@@ -56,6 +58,7 @@ public class SortingPanel extends JPanel {
         bubbleSort = new BubbleSort(array);
         selectionSort = new SelectionSort(array);
         insertionSort = new InsertionSort(array);
+        quickSort = new QuickSort(array);
         
         startButton.setBackground(Color.WHITE);
         startButton.setFocusPainted(false);
@@ -78,6 +81,10 @@ public class SortingPanel extends JPanel {
                         disablingButtons();
                         insertionSortAnimate();
                     }
+                    else if(isQuickSort) {
+                        disablingButtons();
+                        quickSortAnimate();
+                    }
                     else {
                         JOptionPane.showMessageDialog(null, "Select a sorting algorithm first!", "Error", JOptionPane.INFORMATION_MESSAGE);
 //                        JOptionPane.showMessageDialog(startButton, e, TOOL_TIP_TEXT_KEY, HEIGHT);
@@ -99,6 +106,7 @@ public class SortingPanel extends JPanel {
                 bubbleSort = new BubbleSort(array);
                 selectionSort = new SelectionSort(array);
                 insertionSort = new InsertionSort(array);
+                quickSort = new QuickSort(array);
 //                arrayIndex = 0;
 //                bubbleSortCompareIndex = Integer.MAX_VALUE;
 //                selectionSortMinIndex = Integer.MAX_VALUE;
@@ -109,6 +117,7 @@ public class SortingPanel extends JPanel {
                 isBubbleSort = false;
                 isSelectionSort = false;
                 isInsertionSort = false;
+                isQuickSort = false;
                 enablingButtons();
                 repaint();
             }
@@ -123,8 +132,10 @@ public class SortingPanel extends JPanel {
                 try {
                     isSelectionSort = false;
                     isInsertionSort = false;
+                    isQuickSort = false;
                     selectionSortButton.setEnabled(true);
                     insertionSortButton.setEnabled(true);
+                    quickSortButton.setEnabled(true);
                     isBubbleSort = true;
                     bubbleSortButton.setEnabled(false);
                 }
@@ -143,8 +154,10 @@ public class SortingPanel extends JPanel {
                 try {
                     isBubbleSort = false;
                     isInsertionSort = false;
+                    isQuickSort = false;
                     bubbleSortButton.setEnabled(true);
                     insertionSortButton.setEnabled(true);
+                    quickSortButton.setEnabled(true);
                     isSelectionSort = true;
                     selectionSortButton.setEnabled(false);
                 }
@@ -163,10 +176,34 @@ public class SortingPanel extends JPanel {
                 try {
                     isBubbleSort = false;
                     isSelectionSort = false;
+                    isQuickSort = false;
                     bubbleSortButton.setEnabled(true);
                     selectionSortButton.setEnabled(true);
+                    quickSortButton.setEnabled(true);
                     isInsertionSort = true;
                     insertionSortButton.setEnabled(false);
+                }
+                catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+        
+        quickSortButton.setBackground(Color.WHITE);
+        quickSortButton.setFocusPainted(false);
+//        quickSortButton.setBorderPainted(false);
+        quickSortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    isBubbleSort = false;
+                    isSelectionSort = false;
+                    isInsertionSort = false;
+                    bubbleSortButton.setEnabled(true);
+                    selectionSortButton.setEnabled(true);
+                    insertionSortButton.setEnabled(true);
+                    isQuickSort = true;
+                    quickSortButton.setEnabled(false);
                 }
                 catch (Exception exception) {
                     exception.printStackTrace();
@@ -193,6 +230,7 @@ public class SortingPanel extends JPanel {
                     bubbleSort = new BubbleSort(array);
                     selectionSort = new SelectionSort(array);
                     insertionSort = new InsertionSort(array);
+                    quickSort = new QuickSort(array);
                     repaint();
 //                    System.out.println(arraySizesComboBox.getSelectedItem());
                 }
@@ -207,6 +245,7 @@ public class SortingPanel extends JPanel {
         this.add(bubbleSortButton);
         this.add(selectionSortButton);
         this.add(insertionSortButton);
+        this.add(quickSortButton);
         this.add(arraySizeTextField);
         this.add(arraySizesComboBox);
 //        System.out.println(
@@ -249,6 +288,7 @@ public class SortingPanel extends JPanel {
         bubbleSortButton.setEnabled(false);
         selectionSortButton.setEnabled(false);
         insertionSortButton.setEnabled(false);
+        quickSortButton.setEnabled(false);
         arraySizesComboBox.setEnabled(false);
     }
     public void enablingButtons() {
@@ -256,6 +296,7 @@ public class SortingPanel extends JPanel {
         bubbleSortButton.setEnabled(true);
         selectionSortButton.setEnabled(true);
         insertionSortButton.setEnabled(true);
+        quickSortButton.setEnabled(true);
         arraySizesComboBox.setEnabled(true);
     }
     
@@ -395,7 +436,7 @@ public class SortingPanel extends JPanel {
         quickSort.setPivotIndex(0);
         quickSort.setStartIndex(quickSort.getPivotIndex()+1);
         quickSort.setEndIndex(quickSort.getArray().length-1);
-        quickSort.setCompareIndex(quickSort.getArrayIndex()+1);
+//        quickSort.setCompareIndex(quickSort.getArrayIndex()+1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
         Timer timer = new Timer(1, new ActionListener() {
             @Override
@@ -403,14 +444,16 @@ public class SortingPanel extends JPanel {
                 if(isSorted() || isRunning==false) {
 //                    selectionSortMinIndex = Integer.MAX_VALUE;
 //                    selectionSortCompareIndex = Integer.MAX_VALUE;
-                    selectionSort.setMinIndex(Integer.MAX_VALUE);
-                    selectionSort.setCompareIndex(Integer.MAX_VALUE);
-                    isSelectionSort = false;
+                    quickSort.setPivotIndex(Integer.MAX_VALUE);
+                    quickSort.setStartIndex(Integer.MAX_VALUE);
+                    quickSort.setEndIndex(Integer.MAX_VALUE);
+//                    quickSort.setCompareIndex(Integer.MAX_VALUE);
+                    isQuickSort = false;
                     repaint();
                     ((Timer)e.getSource()).stop();
                 } else {
                     if(isRunning) {
-                        selectionSort.selectionSortOnlyOneItem();
+                        quickSort.selectionSortOnlyOneItem();
                     }
                 }
                 repaint();
@@ -480,6 +523,21 @@ public class SortingPanel extends JPanel {
                 if(i==insertionSort.getCompareIndex() || i==insertionSort.getCompareIndex()+1) {
                     g.setColor(Color.RED);
                 }
+            }
+            
+            if(isQuickSort) {
+                if(i==quickSort.getPivotIndex()) {
+                    g.setColor(Color.GREEN);
+                }
+                if(i==quickSort.getStartIndex()) {
+                    g.setColor(Color.BLUE);
+                }
+                if(i==quickSort.getEndIndex()) {
+                    g.setColor(Color.RED);
+                }
+//                if(i==insertionSort.getCompareIndex() || i==insertionSort.getCompareIndex()+1) {
+//                    g.setColor(Color.RED);
+//                }
             }
             
 //            g.fillRect(i*15, 600-array[i], 14, array[i]);
