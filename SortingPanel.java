@@ -433,9 +433,11 @@ public class SortingPanel extends JPanel {
     
     public void quickSortAnimate() {
 //        quickSort.setArrayIndex(0);
-        quickSort.setPivotIndex(0);
-        quickSort.setStartIndex(quickSort.getPivotIndex()+1);
-        quickSort.setEndIndex(quickSort.getArray().length-1);
+        quickSort.setArrayIndex(0);
+        quickSort.setCompareIndex(0);
+//        quickSort.setPivotIndex(0);
+//        quickSort.setStartIndex(quickSort.getPivotIndex()+1);
+//        quickSort.setEndIndex(quickSort.getArray().length-1);
 //        quickSort.setCompareIndex(quickSort.getArrayIndex()+1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
         Timer timer = new Timer(1, new ActionListener() {
@@ -444,16 +446,19 @@ public class SortingPanel extends JPanel {
                 if(isSorted() || isRunning==false) {
 //                    selectionSortMinIndex = Integer.MAX_VALUE;
 //                    selectionSortCompareIndex = Integer.MAX_VALUE;
-                    quickSort.setPivotIndex(Integer.MAX_VALUE);
-                    quickSort.setStartIndex(Integer.MAX_VALUE);
-                    quickSort.setEndIndex(Integer.MAX_VALUE);
+                    quickSort.setArrayIndex(Integer.MAX_VALUE);
+                    quickSort.setCompareIndex(Integer.MAX_VALUE);
+                    quickSort.setPartitionIndex(-1);
+//                    quickSort.setPivotIndex(Integer.MAX_VALUE);
+//                    quickSort.setStartIndex(Integer.MAX_VALUE);
+//                    quickSort.setEndIndex(Integer.MAX_VALUE);
 //                    quickSort.setCompareIndex(Integer.MAX_VALUE);
                     isQuickSort = false;
                     repaint();
                     ((Timer)e.getSource()).stop();
                 } else {
                     if(isRunning) {
-                        quickSort.selectionSortOnlyOneItem();
+                        quickSort.sortOnlyOneItem();
                     }
                 }
                 repaint();
@@ -526,14 +531,14 @@ public class SortingPanel extends JPanel {
             }
             
             if(isQuickSort) {
-                if(i==quickSort.getPivotIndex()) {
-                    g.setColor(Color.GREEN);
-                }
-                if(i==quickSort.getStartIndex()) {
+                if(i==quickSort.getArrayIndex()) {
                     g.setColor(Color.BLUE);
                 }
-                if(i==quickSort.getEndIndex()) {
+                if(i==quickSort.getCompareIndex()) {
                     g.setColor(Color.RED);
+                }
+                if(i==quickSort.getPartitionIndex()) {
+                    g.setColor(Color.GREEN);
                 }
 //                if(i==insertionSort.getCompareIndex() || i==insertionSort.getCompareIndex()+1) {
 //                    g.setColor(Color.RED);
