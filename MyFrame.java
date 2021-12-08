@@ -4,6 +4,7 @@ package sortingalgorithmvisualizer;
 
 
 import java.awt.Dimension;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -15,6 +16,7 @@ public class MyFrame extends JFrame {
     private SortingPanel sortingPanel = new SortingPanel();
     
     JButton button;
+    ImageIcon img = new ImageIcon("F:\\WORKING TREE\\JAVA PROGRAMMING\\UNI PROJECTS\\SortingAlgorithmVisualizer\\src\\sortingalgorithmvisualizer\\imgs\\icon.png");
     
     public MyFrame() {
         this.setTitle("Sorting Visualizer");
@@ -25,6 +27,7 @@ public class MyFrame extends JFrame {
         this.pack();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setIconImage(img.getImage());
         this.setVisible(true);
     }
     

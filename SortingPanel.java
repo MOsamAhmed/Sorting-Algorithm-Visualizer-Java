@@ -4,7 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -59,6 +68,10 @@ public class SortingPanel extends JPanel {
     
     private int delay;
     
+    File file;
+    AudioInputStream audioInputStream;
+    Clip clip;
+    
     private BubbleSort bubbleSort;
     private SelectionSort selectionSort;
     private InsertionSort insertionSort;
@@ -68,6 +81,16 @@ public class SortingPanel extends JPanel {
     
 //    Constructor
     public SortingPanel() {
+        file = new File("F:\\WORKING TREE\\JAVA PROGRAMMING\\UNI PROJECTS\\SortingAlgorithmVisualizer\\src\\sortingalgorithmvisualizer\\sounds\\arrayElementAccessSound.wav");
+        try {
+            audioInputStream = AudioSystem.getAudioInputStream(file);
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        
+        
 //        setting size to 25 because default value is 25 and drop will be initialized later
         array = ArrayManager.randomArrayGenerator(25);
 //        this.setArray();
@@ -89,6 +112,8 @@ public class SortingPanel extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 try {
                     isRunning = true;
                     if(isBubbleSort) {
@@ -135,6 +160,8 @@ public class SortingPanel extends JPanel {
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 setRandomArray();
 //                arrayIndex = 0;
 //                bubbleSortCompareIndex = Integer.MAX_VALUE;
@@ -160,6 +187,8 @@ public class SortingPanel extends JPanel {
         bubbleSortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 try {
                     if(isSortedArrayGenerated) {
                         setRandomArray();
@@ -189,6 +218,8 @@ public class SortingPanel extends JPanel {
         selectionSortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 try {
                     if(isSortedArrayGenerated) {
                         setRandomArray();
@@ -218,6 +249,8 @@ public class SortingPanel extends JPanel {
         insertionSortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 try {
                     if(isSortedArrayGenerated) {
                         setRandomArray();
@@ -247,6 +280,8 @@ public class SortingPanel extends JPanel {
         quickSortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 try {
                     if(isSortedArrayGenerated) {
                         setRandomArray();
@@ -276,6 +311,8 @@ public class SortingPanel extends JPanel {
         linearSearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 try {
                     if(isSortedArrayGenerated) {
                         setRandomArray();
@@ -305,6 +342,8 @@ public class SortingPanel extends JPanel {
         binarySearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 try {
                     if(!isSortedArrayGenerated) {
                         setNormalArray();
@@ -369,6 +408,8 @@ public class SortingPanel extends JPanel {
         arraySizesComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 try {
                     if(isSortedArrayGenerated) {
                         setNormalArray();
@@ -396,6 +437,8 @@ public class SortingPanel extends JPanel {
         searchElementsComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 try {
 //                    array = ArrayManager.randomArrayGenerator((int)searchElementsComboBox.getSelectedItem());
 //                    
@@ -425,6 +468,8 @@ public class SortingPanel extends JPanel {
         delayComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clip.setMicrosecondPosition(0);
+                clip.start();
                 try {
 //                    array = ArrayManager.randomArrayGenerator((int)searchElementsComboBox.getSelectedItem());
 //                    
@@ -470,7 +515,7 @@ public class SortingPanel extends JPanel {
 //                + startButton.getWidth() +" "
 //                + startButton.getHeight()
 //        );
-        
+//        clip.start();
     }
     
 //    not being used currently
@@ -602,6 +647,8 @@ public class SortingPanel extends JPanel {
                 } else {
                     if(isRunning) {
                         bubbleSort.bubbleSortOnlyOneItem();
+                        clip.setMicrosecondPosition(0);
+                        clip.start();
                     }
                 }
                 repaint();
@@ -653,6 +700,8 @@ public class SortingPanel extends JPanel {
                 } else {
                     if(isRunning) {
                         selectionSort.selectionSortOnlyOneItem();
+                        clip.setMicrosecondPosition(0);
+                        clip.start();
                     }
                 }
                 repaint();
@@ -680,6 +729,8 @@ public class SortingPanel extends JPanel {
                 } else {
                     if(isRunning) {
                         insertionSort.insertionSortOnlyOneItem();
+                        clip.setMicrosecondPosition(0);
+                        clip.start();
                     }
                 }
                 repaint();
@@ -716,6 +767,8 @@ public class SortingPanel extends JPanel {
                 } else {
                     if(isRunning) {
                         quickSort.sortOnlyOneItem();
+                        clip.setMicrosecondPosition(0);
+                        clip.start();
                     }
                 }
                 repaint();
@@ -743,6 +796,8 @@ public class SortingPanel extends JPanel {
                 } else {
                     if(isRunning) {
                         linearSearch.linearSearchCheckOneItem();
+                        clip.setMicrosecondPosition(0);
+                        clip.start();
                     }
                     repaint();
                 }
@@ -772,6 +827,8 @@ public class SortingPanel extends JPanel {
                 } else {
                     if(isRunning) {
                         binarySearch.binarySearchCheckOneItem();
+                        clip.setMicrosecondPosition(0);
+                        clip.start();
                     }
                     repaint();
                 }
