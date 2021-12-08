@@ -1,13 +1,10 @@
 package sortingalgorithmvisualizer;
-//import javax.swing.*;
-//import java.awt.*;
-
 
 import java.awt.Dimension;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-
+//import javax.swing.ImageIcon;
+//import javax.swing.JButton;
+//import javax.swing.JFrame;
+import javax.swing.*;
 
 public class MyFrame extends JFrame {
     
@@ -21,7 +18,6 @@ public class MyFrame extends JFrame {
     public MyFrame() {
         this.setTitle("Sorting Visualizer");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        this.getContentPane().setSize(new Dimension(1200, 600));
         this.getContentPane().setPreferredSize(new Dimension(1200, 675));
         this.getContentPane().add(sortingPanel);
         this.pack();
@@ -30,9 +26,5 @@ public class MyFrame extends JFrame {
         this.setIconImage(img.getImage());
         this.setVisible(true);
     }
-    
-//    public SortingPanel getSortingPanel() {
-//        return this.sortingPanel;
-//    }
     
 }

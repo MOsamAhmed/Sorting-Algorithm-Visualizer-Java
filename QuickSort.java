@@ -18,8 +18,7 @@ public class QuickSort {
         stack = new int[this.array.length];
         low = 0;
         high = stack.length-1;
-//        arrayIndex = 0;
-//        compareIndex = 0;
+        
         arrayIndex = Integer.MAX_VALUE;
         compareIndex = Integer.MAX_VALUE;
         pivotElement = 0;
@@ -35,7 +34,7 @@ public class QuickSort {
     }
 
   
-    // Sorts arr[l..h] using iterative QuickSort
+    // Sorts array from l-h using iteration with the help of stack
     public void sortOnlyOneItem() {
   
         // keep popping elements until stack is not empty
@@ -53,7 +52,6 @@ public class QuickSort {
             }
   
             // set pivot element at it's proper position
-            
             if (compareIndex <= high - 1) {
 
                 if (array[compareIndex] <= pivotElement) {
@@ -62,7 +60,6 @@ public class QuickSort {
                 }
                 
                 compareIndex++;
-//                return array;
             }
             else {
                 swap(arrayIndex+1, high);
@@ -94,8 +91,7 @@ public class QuickSort {
             }
     
         }
-
-//        return array;
+        
     }
     
     public void swap(int i, int j) {
@@ -103,11 +99,6 @@ public class QuickSort {
         array[i] = array[j];
         array[j] = temp;
     }
-    
-//    public void push(int val) {
-//        stackPointer++;
-//        stack[stackPointer] = val;
-//    }
 
     public int[] getArray() {
         return array;
@@ -137,31 +128,4 @@ public class QuickSort {
         this.partitionIndex = partitionIndex;
     }
     
-//    public int getLow() {
-//        return low;
-//    }
-//    public void setLow(int low) {
-//        this.low = low;
-//    }
-
-//    public int getHigh() {
-//        return high;
-//    }
-//    public void setHigh(int high) {
-//        this.high = high;
-//    }
-    
-//    public int getSP() {
-//        return stackPointer;
-//    }
-//    public void setSP(int sp) {
-//        this.stackPointer = sp;
-//    }
-
-//    public boolean getIsPartitioning() {
-//        return isPartioning;
-//    }
-//    public void setIsPartioning(boolean isPartioning) {
-//        this.isPartioning = isPartioning;
-//    }
 }

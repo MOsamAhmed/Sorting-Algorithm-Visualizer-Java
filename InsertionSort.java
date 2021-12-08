@@ -8,12 +8,10 @@ public class InsertionSort {
     private int[] array;
     
     public InsertionSort(int[] array) {
-//        arrayIndex = 0;
         arrayIndex = Integer.MAX_VALUE;
         compareIndex = Integer.MAX_VALUE;
         key = Integer.MAX_VALUE;
         isIterating = false;
-//        minIndex = Integer.MAX_VALUE;
         this.array = array;
     }
     
@@ -35,20 +33,12 @@ public class InsertionSort {
         this.compareIndex = compareIndex;
     }
     
-//    public int getMinIndex() {
-//        return minIndex;
-//    }
-//    public void setMinIndex(int minIndex) {
-//        this.minIndex = minIndex;
-//    }
-    
     public void insertionSortOnlyOneItem() {
 //        checking if nested loop ended and also incrementing nested loop pointer
         if(!isIterating) {
             key = array[arrayIndex];
             compareIndex = arrayIndex-1;
             isIterating = true;
-//            minIndex = compareIndex;
         }
         
 //        inside nested loop
@@ -63,13 +53,6 @@ public class InsertionSort {
             array[compareIndex+1] = key;
             arrayIndex++;
             isIterating = false;
-            
-//            int temp = array[minIndex];
-//            array[minIndex] = array[arrayIndex];
-//            array[arrayIndex] = temp;
-//            arrayIndex++;
-//            minIndex = arrayIndex;
-//            compareIndex = arrayIndex+1;
         }
     }
     

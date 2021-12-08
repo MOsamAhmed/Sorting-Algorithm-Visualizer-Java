@@ -1,26 +1,24 @@
 package sortingalgorithmvisualizer;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.Color;
+//import java.awt.Graphics;
+import java.awt.*;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.Timer;
+//import javax.sound.sampled.AudioInputStream;
+//import javax.sound.sampled.AudioSystem;
+//import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
+//import javax.swing.JButton;
+//import javax.swing.JComboBox;
+//import javax.swing.JOptionPane;
+//import javax.swing.JPanel;
+//import javax.swing.JTextField;
+//import javax.swing.Timer;
+import javax.swing.*;
 
 public class SortingPanel extends JPanel {
     
@@ -28,10 +26,7 @@ public class SortingPanel extends JPanel {
     
     private Random random = new Random();
     private int[] array = new int[50];
-//    private int arrayIndex;
-//    private int bubbleSortCompareIndex;
-//    private int selectionSortMinIndex = Integer.MAX_VALUE;
-//    private int selectionSortCompareIndex = Integer.MAX_VALUE;
+
     
     JButton startButton = new JButton("Start");
     JButton resetButton = new JButton("Reset");
@@ -39,11 +34,8 @@ public class SortingPanel extends JPanel {
     JButton selectionSortButton = new JButton("Selection Sort");
     JButton insertionSortButton = new JButton("Insertion Sort");
     JButton quickSortButton = new JButton("Quick Sort");
-//    JButton mergeSortButton = new JButton("Merge Sort");
     JButton linearSearchButton = new JButton("Linear Search");
     JButton binarySearchButton = new JButton("Binary Search");
-//    JButton listOfSearchButton = new JButton("listOfSearch");
-//    JButton listOfSearchButton1 = new JButton("listOfSearch1");
     
     JTextField arraySizeTextField;
     JComboBox arraySizesComboBox;
@@ -93,10 +85,6 @@ public class SortingPanel extends JPanel {
         
 //        setting size to 25 because default value is 25 and drop will be initialized later
         array = ArrayManager.randomArrayGenerator(25);
-//        this.setArray();
-
-//        arrayIndex = 0;
-//        bubbleSortCompareIndex = Integer.MAX_VALUE;
         
         bubbleSort = new BubbleSort(array);
         selectionSort = new SelectionSort(array);
@@ -107,8 +95,7 @@ public class SortingPanel extends JPanel {
         
         startButton.setBackground(Color.WHITE);
         startButton.setFocusPainted(false);
-//        when border paint is set to true it shows a mouse hover action
-//        startButton.setBorderPainted(false);
+
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,27 +104,27 @@ public class SortingPanel extends JPanel {
                 try {
                     isRunning = true;
                     if(isBubbleSort) {
-                        disablingButtons();
+                        disablingUIElements();
                         bubbleSortAnimate();
                     }
                     else if(isSelectionSort) {
-                        disablingButtons();
+                        disablingUIElements();
                         selectionSortAnimate();
                     }
                     else if(isInsertionSort) {
-                        disablingButtons();
+                        disablingUIElements();
                         insertionSortAnimate();
                     }
                     else if(isQuickSort) {
-                        disablingButtons();
+                        disablingUIElements();
                         quickSortAnimate();
                     }
                     else if(isLinearSearch) {
-                        disablingButtons();
+                        disablingUIElements();
                         linearSearchAnimate();
                     }
                     else if(isBinarySearch) {
-                        disablingButtons();
+                        disablingUIElements();
                         binarySearchAnimate();
                     }
                     else {
@@ -156,18 +143,12 @@ public class SortingPanel extends JPanel {
         
         resetButton.setBackground(Color.WHITE);
         resetButton.setFocusPainted(false);
-//        resetButton.setBorderPainted(false);
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 clip.setMicrosecondPosition(0);
                 clip.start();
                 setRandomArray();
-//                arrayIndex = 0;
-//                bubbleSortCompareIndex = Integer.MAX_VALUE;
-//                selectionSortMinIndex = Integer.MAX_VALUE;
-//                selectionSortCompareIndex = Integer.MAX_VALUE;
-//                setArray();
                 isRunning = false;
                 
                 isBubbleSort = false;
@@ -176,14 +157,13 @@ public class SortingPanel extends JPanel {
                 isQuickSort = false;
                 isLinearSearch = false;
                 isBinarySearch = false;
-                enablingButtons();
+                enablingUIElements();
                 repaint();
             }
         });
         
         bubbleSortButton.setBackground(Color.WHITE);
         bubbleSortButton.setFocusPainted(false);
-//        bubbleSortButton.setBorderPainted(false);
         bubbleSortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -214,7 +194,6 @@ public class SortingPanel extends JPanel {
         
         selectionSortButton.setBackground(Color.WHITE);
         selectionSortButton.setFocusPainted(false);
-//        selectionSortButton.setBorderPainted(false);
         selectionSortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -245,7 +224,6 @@ public class SortingPanel extends JPanel {
         
         insertionSortButton.setBackground(Color.WHITE);
         insertionSortButton.setFocusPainted(false);
-//        insertionSortButton.setBorderPainted(false);
         insertionSortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -276,7 +254,6 @@ public class SortingPanel extends JPanel {
         
         quickSortButton.setBackground(Color.WHITE);
         quickSortButton.setFocusPainted(false);
-//        quickSortButton.setBorderPainted(false);
         quickSortButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -307,7 +284,6 @@ public class SortingPanel extends JPanel {
         
         linearSearchButton.setBackground(Color.WHITE);
         linearSearchButton.setFocusPainted(false);
-//        linearSearchButton.setBorderPainted(false);
         linearSearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -338,7 +314,6 @@ public class SortingPanel extends JPanel {
         
         binarySearchButton.setBackground(Color.WHITE);
         binarySearchButton.setFocusPainted(false);
-//        binarySearchButton.setBorderPainted(false);
         binarySearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -364,34 +339,6 @@ public class SortingPanel extends JPanel {
                 catch (Exception exception) {
                     exception.printStackTrace();
                 }
-//                arrayIndex = 0;
-//                bubbleSortCompareIndex = Integer.MAX_VALUE;
-//                selectionSortMinIndex = Integer.MAX_VALUE;
-//                selectionSortCompareIndex = Integer.MAX_VALUE;
-//                setArray();
-//                isRunning = false;
-                
-//                isBubbleSort = false;
-//                isSelectionSort = false;
-//                isInsertionSort = false;
-//                isQuickSort = false;
-//                isLinearSearch = false;
-                
-//                isBubbleSort = false;
-//                isSelectionSort = false;
-//                isInsertionSort = false;
-//                isQuickSort = false;
-//                isLinearSearch = false;
-//                bubbleSortButton.setEnabled(true);
-//                selectionSortButton.setEnabled(true);
-//                insertionSortButton.setEnabled(true);
-//                quickSortButton.setEnabled(true);
-//                linearSearchButton.setEnabled(true);
-//                isBinarySearch = true;
-//                binarySearchButton.setEnabled(false);
-                
-//                enablingButtons();
-//                repaint();
             }
         });
         
@@ -416,7 +363,6 @@ public class SortingPanel extends JPanel {
                     } else {
                         setRandomArray();
                     }
-//                    System.out.println(arraySizesComboBox.getSelectedItem());
                 }
                 catch (Exception exception) {
                     exception.printStackTrace();
@@ -439,19 +385,7 @@ public class SortingPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 clip.setMicrosecondPosition(0);
                 clip.start();
-                try {
-//                    array = ArrayManager.randomArrayGenerator((int)searchElementsComboBox.getSelectedItem());
-//                    
-//                    bubbleSort = new BubbleSort(array);
-//                    selectionSort = new SelectionSort(array);
-//                    insertionSort = new InsertionSort(array);
-//                    quickSort = new QuickSort(array);
-                    repaint();
-//                    System.out.println(arraySizesComboBox.getSelectedItem());
-                }
-                catch (Exception exception) {
-                    exception.printStackTrace();
-                }
+                repaint();
             }
         });
         
@@ -471,15 +405,8 @@ public class SortingPanel extends JPanel {
                 clip.setMicrosecondPosition(0);
                 clip.start();
                 try {
-//                    array = ArrayManager.randomArrayGenerator((int)searchElementsComboBox.getSelectedItem());
-//                    
-//                    bubbleSort = new BubbleSort(array);
-//                    selectionSort = new SelectionSort(array);
-//                    insertionSort = new InsertionSort(array);
-//                    quickSort = new QuickSort(array);
                     delay = (int)delayComboBox.getSelectedItem();
                     repaint();
-//                    System.out.println(arraySizesComboBox.getSelectedItem());
                 }
                 catch (Exception exception) {
                     exception.printStackTrace();
@@ -495,7 +422,6 @@ public class SortingPanel extends JPanel {
         this.add(selectionSortButton);
         this.add(insertionSortButton);
         this.add(quickSortButton);
-//        this.add(mergeSortButton);
         
         this.add(arraySizeTextField);
         this.add(arraySizesComboBox);
@@ -504,26 +430,11 @@ public class SortingPanel extends JPanel {
         this.add(searchElementsComboBox);
         this.add(linearSearchButton);
         this.add(binarySearchButton);
+        
         this.add(delayTextField);
         this.add(delayComboBox);
-//        this.add(binarySearchButton);
-//        this.add(listOfSearchButton);
-//        this.add(listOfSearchButton1);
-//        System.out.println(
-//                startButton.getX() +" "
-//                + startButton.getX() +" "
-//                + startButton.getWidth() +" "
-//                + startButton.getHeight()
-//        );
-//        clip.start();
     }
     
-//    not being used currently
-    public int[] getArray() {
-        return this.array;
-    }
-    
-//    not being used currently
     public void setRandomArray() {
         array = ArrayManager.randomArrayGenerator((int)arraySizesComboBox.getSelectedItem());
         bubbleSort = new BubbleSort(array);
@@ -554,11 +465,9 @@ public class SortingPanel extends JPanel {
             if(1000%j==0) {
                 temp[index] = j;
                 index++;
-//                System.out.println(j+" ");
             }
         }
         return temp;
-//        System.out.println(num);
     }
     private Integer[] setSearchElementsComboBox() {
         Integer[] temp = new Integer[550];
@@ -566,7 +475,6 @@ public class SortingPanel extends JPanel {
             temp[i] = i+1;
         }
         return temp;
-//        System.out.println(num);
     }
     private Integer[] setDelayComboBox() {
         Integer[] temp = new Integer[1000];
@@ -574,10 +482,9 @@ public class SortingPanel extends JPanel {
             temp[i] = i+1;
         }
         return temp;
-//        System.out.println(num);
     }
     
-    public void disablingButtons() {
+    public void disablingUIElements() {
         startButton.setEnabled(false);
         bubbleSortButton.setEnabled(false);
         selectionSortButton.setEnabled(false);
@@ -589,7 +496,7 @@ public class SortingPanel extends JPanel {
         binarySearchButton.setEnabled(false);
         delayComboBox.setEnabled(false);
     }
-    public void enablingButtons() {
+    public void enablingUIElements() {
         startButton.setEnabled(true);
         bubbleSortButton.setEnabled(true);
         selectionSortButton.setEnabled(true);
@@ -611,35 +518,13 @@ public class SortingPanel extends JPanel {
         return true;
     }
     
-//    public void bubbleSortOnlyOneItem() {
-////        inside nested loop
-//        if(array[bubbleSortCompareIndex]>array[bubbleSortCompareIndex+1]) {
-//            int temp = array[bubbleSortCompareIndex];
-//            array[bubbleSortCompareIndex] = array[bubbleSortCompareIndex+1];
-//            array[bubbleSortCompareIndex+1] = temp;
-//        }
-//        
-////        checking if nested loop ended and also incrementing nested loop pointer
-//        if((bubbleSortCompareIndex+1) < (array.length-arrayIndex-1)) {
-//            bubbleSortCompareIndex++;
-//        }
-//        
-////        nested loop ended and incrementing outer loop
-//        else {
-//            arrayIndex++;
-//            bubbleSortCompareIndex = 0;
-//        }
-//    }
-    
     public void bubbleSortAnimate() {
-//        bubbleSortCompareIndex = 0;
         bubbleSort.setCompareIndex(0);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
         Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isSorted() || isRunning==false) {
-//                    bubbleSortCompareIndex = Integer.MAX_VALUE;
                     bubbleSort.setCompareIndex(Integer.MAX_VALUE);
                     isBubbleSort = false;
                     repaint();
@@ -657,31 +542,7 @@ public class SortingPanel extends JPanel {
         timer.start();
     }
     
-//    public void selectionSortOnlyOneItem() {
-////        inside nested loop
-//        if(array[selectionSortCompareIndex]<array[selectionSortMinIndex]) {
-//            selectionSortMinIndex = selectionSortCompareIndex;
-//        }
-//        
-////        checking if nested loop ended and also incrementing nested loop pointer
-//        if((selectionSortCompareIndex) < (array.length-1)) {
-//            selectionSortCompareIndex++;
-//        }
-//        
-////        nested loop ended and incrementing outer loop
-//        else {
-//            int temp = array[selectionSortMinIndex];
-//            array[selectionSortMinIndex] = array[arrayIndex];
-//            array[arrayIndex] = temp;
-//            arrayIndex++;
-//            selectionSortMinIndex = arrayIndex;
-//            selectionSortCompareIndex = arrayIndex+1;
-//        }
-//    }
-    
     public void selectionSortAnimate() {
-//        selectionSortMinIndex = arrayIndex;
-//        selectionSortCompareIndex = arrayIndex+1;
         selectionSort.setArrayIndex(0);
         selectionSort.setMinIndex(selectionSort.getArrayIndex());
         selectionSort.setCompareIndex(selectionSort.getArrayIndex()+1);
@@ -690,8 +551,6 @@ public class SortingPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isSorted() || isRunning==false) {
-//                    selectionSortMinIndex = Integer.MAX_VALUE;
-//                    selectionSortCompareIndex = Integer.MAX_VALUE;
                     selectionSort.setMinIndex(Integer.MAX_VALUE);
                     selectionSort.setCompareIndex(Integer.MAX_VALUE);
                     isSelectionSort = false;
@@ -712,16 +571,11 @@ public class SortingPanel extends JPanel {
     
     public void insertionSortAnimate() {
         insertionSort.setArrayIndex(1);
-//        insertionSort.setMinIndex(insertionSort.getArrayIndex());
-//        insertionSort.setCompareIndex(insertionSort.getArrayIndex()+1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
         Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isSorted() || isRunning==false) {
-//                    selectionSortMinIndex = Integer.MAX_VALUE;
-//                    selectionSortCompareIndex = Integer.MAX_VALUE;
-//                    insertionSort.setMinIndex(Integer.MAX_VALUE);
                     insertionSort.setCompareIndex(Integer.MAX_VALUE);
                     isInsertionSort = false;
                     repaint();
@@ -740,27 +594,16 @@ public class SortingPanel extends JPanel {
     }
     
     public void quickSortAnimate() {
-//        quickSort.setArrayIndex(0);
         quickSort.setArrayIndex(0);
         quickSort.setCompareIndex(0);
-//        quickSort.setPivotIndex(0);
-//        quickSort.setStartIndex(quickSort.getPivotIndex()+1);
-//        quickSort.setEndIndex(quickSort.getArray().length-1);
-//        quickSort.setCompareIndex(quickSort.getArrayIndex()+1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
         Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isSorted() || isRunning==false) {
-//                    selectionSortMinIndex = Integer.MAX_VALUE;
-//                    selectionSortCompareIndex = Integer.MAX_VALUE;
                     quickSort.setArrayIndex(Integer.MAX_VALUE);
                     quickSort.setCompareIndex(Integer.MAX_VALUE);
                     quickSort.setPartitionIndex(-1);
-//                    quickSort.setPivotIndex(Integer.MAX_VALUE);
-//                    quickSort.setStartIndex(Integer.MAX_VALUE);
-//                    quickSort.setEndIndex(Integer.MAX_VALUE);
-//                    quickSort.setCompareIndex(Integer.MAX_VALUE);
                     isQuickSort = false;
                     repaint();
                     ((Timer)e.getSource()).stop();
@@ -780,7 +623,6 @@ public class SortingPanel extends JPanel {
     public void linearSearchAnimate() {
         linearSearch.setArrayIndex(0);
         linearSearch.setFindX((int)searchElementsComboBox.getSelectedItem());
-//        insertdsionSort.setArrayIndex(1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
         Timer timer = new Timer(delay, new ActionListener() {
             @Override
@@ -789,9 +631,6 @@ public class SortingPanel extends JPanel {
                     linearSearch.setArrayIndex(Integer.MAX_VALUE);
                     linearSearch.setFindX(-1);
                     linearSearch.setFounded(false);
-//                    isLinearSearch = false;
-//                    insertionSort.setCompareIndex(Integer.MAX_VALUE);
-//                    repaint();
                     ((Timer)e.getSource()).stop();
                 } else {
                     if(isRunning) {
@@ -810,19 +649,13 @@ public class SortingPanel extends JPanel {
         binarySearch.setStartIndex(0);
         binarySearch.setEndIndex(array.length-1);
         binarySearch.setFindX((int)searchElementsComboBox.getSelectedItem());
-//        insertdsionSort.setArrayIndex(1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
         Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(binarySearch.getFounded() || isRunning==false) {
-//                    binarySearch.setStartIndex(Integer.MAX_VALUE);
-//                    binarySearch.setEndIndex(Integer.MAX_VALUE);
                     binarySearch.setFindX(-1);
                     binarySearch.setFounded(false);
-//                    isLinearSearch = false;
-//                    insertionSort.setCompareIndex(Integer.MAX_VALUE);
-//                    repaint();
                     ((Timer)e.getSource()).stop();
                 } else {
                     if(isRunning) {
@@ -837,29 +670,6 @@ public class SortingPanel extends JPanel {
         timer.start();
     }
     
-//    public void bubbleSortAnimate() {
-//        bubbleSortCompareIndex = 0;
-////        timer is taking value in milliseconds i.e 1000ms = 1s
-//        Timer.
-//        Timer timer = new Timer(100, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int temp;
-//                for(int i=0; i<array.length-1; i++) {
-//                    for(int bubbleSortCompareIndex=0; bubbleSortCompareIndex<array.length-1-i; bubbleSortCompareIndex++) {
-//                        if(array[bubbleSortCompareIndex]>array[bubbleSortCompareIndex+1]) {
-//                            temp = array[bubbleSortCompareIndex];
-//                            array[bubbleSortCompareIndex] = array[bubbleSortCompareIndex+1];
-//                            array[bubbleSortCompareIndex+1] = temp;
-//                        }
-//                    }
-//                    repaint();
-//                }
-//            }
-//        });
-//        timer.start();
-//    }
-    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -867,13 +677,6 @@ public class SortingPanel extends JPanel {
         
         for(int i=0; i<array.length; i++) {
             
-//            if(i==arrayIndex) {
-//                g.setColor(Color.GREEN);
-//            } else {
-//                g.setColor(new Color(223,223,223));
-//            }
-
-//            Default color (grey)
             g.setColor(new Color(223,223,223));
             
             if(isBubbleSort) {
@@ -910,9 +713,6 @@ public class SortingPanel extends JPanel {
                 if(i==quickSort.getPartitionIndex()) {
                     g.setColor(Color.GREEN);
                 }
-//                if(i==insertionSort.getCompareIndex() || i==insertionSort.getCompareIndex()+1) {
-//                    g.setColor(Color.RED);
-//                }
             }
             
             if(isLinearSearch) {
@@ -938,8 +738,7 @@ public class SortingPanel extends JPanel {
                 }
             }
             
-//            g.fillRect(i*15, 600-array[i], 14, array[i]);
-//            g.fillRect(i, i, WIDTH, HEIGHT);
+//            g.fillRect(x, y, WIDTH, HEIGHT);
             g.fillRect(100+((1000/array.length)*i), 675-array[i], (1000/array.length)-1, array[i]);
         }
     }

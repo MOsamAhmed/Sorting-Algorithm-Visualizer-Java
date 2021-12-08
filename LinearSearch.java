@@ -18,8 +18,6 @@ public class LinearSearch {
             founded = true;
         }
         else if(findX==array[arrayIndex]) {
-//            System.out.println(findX);
-//            System.out.println(array[arrayIndex]);
             founded = true;
         }
         else {

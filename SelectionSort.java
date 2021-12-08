@@ -7,7 +7,6 @@ public class SelectionSort {
     private int[] array;
     
     public SelectionSort(int[] array) {
-//        arrayIndex = 0;
         arrayIndex = Integer.MAX_VALUE;
         compareIndex = Integer.MAX_VALUE;
         minIndex = Integer.MAX_VALUE;

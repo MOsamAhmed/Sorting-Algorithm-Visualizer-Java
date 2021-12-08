@@ -21,10 +21,6 @@ public class BinarySearch {
         midIndex = (startIndex+endIndex)/2;
         if(startIndex<=endIndex) {
             if(findX==array[midIndex]) {
-    //            System.out.println(findX);
-    //            System.out.println(array[arrayIndex]);
-//                startIndex = Integer.MAX_VALUE;
-//                endIndex = Integer.MAX_VALUE;
                 founded = true;
             }
             else if(array[midIndex]<findX) {
