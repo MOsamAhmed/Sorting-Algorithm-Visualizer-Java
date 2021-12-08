@@ -44,6 +44,10 @@ public class SortingPanel extends JPanel {
     JComboBox searchElementsComboBox;
     Integer[] searchElementsArray;
     
+    JTextField delayTextField;
+    JComboBox delayComboBox;
+    Integer[] delayArray;
+    
     private boolean isRunning;
     private boolean isBubbleSort;
     private boolean isSelectionSort;
@@ -52,6 +56,8 @@ public class SortingPanel extends JPanel {
     private boolean isLinearSearch;
     private boolean isBinarySearch;
     private boolean isSortedArrayGenerated;
+    
+    private int delay;
     
     private BubbleSort bubbleSort;
     private SelectionSort selectionSort;
@@ -111,8 +117,8 @@ public class SortingPanel extends JPanel {
                     }
                     else {
                         JOptionPane.showMessageDialog(null,
-                                "Select a sorting or searching method first!",
-                                "Error",
+                                "Select A Sorting Or Searching Algorithm First!",
+                                "ERROR",
                                 JOptionPane.INFORMATION_MESSAGE);
 //                        JOptionPane.showMessageDialog(startButton, e, TOOL_TIP_TEXT_KEY, HEIGHT);
                     }
@@ -406,6 +412,38 @@ public class SortingPanel extends JPanel {
             }
         });
         
+        delayTextField = new JTextField("Delay (milliseconds)");
+        delayTextField.setBackground(new Color(31,31,31));
+        delayTextField.setEditable(false);
+        delayTextField.setFont(startButton.getFont());
+        delayTextField.setForeground(Color.WHITE);
+        delayTextField.setHighlighter(null);
+        
+        delayArray = setDelayComboBox();
+        delayComboBox = new JComboBox(delayArray);
+        delayComboBox.setSelectedIndex(0);
+        delayComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+//                    array = ArrayManager.randomArrayGenerator((int)searchElementsComboBox.getSelectedItem());
+//                    
+//                    bubbleSort = new BubbleSort(array);
+//                    selectionSort = new SelectionSort(array);
+//                    insertionSort = new InsertionSort(array);
+//                    quickSort = new QuickSort(array);
+                    delay = (int)delayComboBox.getSelectedItem();
+                    repaint();
+//                    System.out.println(arraySizesComboBox.getSelectedItem());
+                }
+                catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+        
+        delay = 1;
+        
         this.add(startButton);
         this.add(resetButton);
         this.add(bubbleSortButton);
@@ -421,6 +459,8 @@ public class SortingPanel extends JPanel {
         this.add(searchElementsComboBox);
         this.add(linearSearchButton);
         this.add(binarySearchButton);
+        this.add(delayTextField);
+        this.add(delayComboBox);
 //        this.add(binarySearchButton);
 //        this.add(listOfSearchButton);
 //        this.add(listOfSearchButton1);
@@ -483,6 +523,14 @@ public class SortingPanel extends JPanel {
         return temp;
 //        System.out.println(num);
     }
+    private Integer[] setDelayComboBox() {
+        Integer[] temp = new Integer[1000];
+        for(int i=0; i<temp.length; i++) {
+            temp[i] = i+1;
+        }
+        return temp;
+//        System.out.println(num);
+    }
     
     public void disablingButtons() {
         startButton.setEnabled(false);
@@ -494,6 +542,7 @@ public class SortingPanel extends JPanel {
         searchElementsComboBox.setEnabled(false);
         linearSearchButton.setEnabled(false);
         binarySearchButton.setEnabled(false);
+        delayComboBox.setEnabled(false);
     }
     public void enablingButtons() {
         startButton.setEnabled(true);
@@ -505,6 +554,7 @@ public class SortingPanel extends JPanel {
         searchElementsComboBox.setEnabled(true);
         linearSearchButton.setEnabled(true);
         binarySearchButton.setEnabled(true);
+        delayComboBox.setEnabled(true);
     }
     
     public boolean isSorted() {
@@ -540,7 +590,7 @@ public class SortingPanel extends JPanel {
 //        bubbleSortCompareIndex = 0;
         bubbleSort.setCompareIndex(0);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
-        Timer timer = new Timer(1, new ActionListener() {
+        Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isSorted() || isRunning==false) {
@@ -589,7 +639,7 @@ public class SortingPanel extends JPanel {
         selectionSort.setMinIndex(selectionSort.getArrayIndex());
         selectionSort.setCompareIndex(selectionSort.getArrayIndex()+1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
-        Timer timer = new Timer(1, new ActionListener() {
+        Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isSorted() || isRunning==false) {
@@ -616,7 +666,7 @@ public class SortingPanel extends JPanel {
 //        insertionSort.setMinIndex(insertionSort.getArrayIndex());
 //        insertionSort.setCompareIndex(insertionSort.getArrayIndex()+1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
-        Timer timer = new Timer(1, new ActionListener() {
+        Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isSorted() || isRunning==false) {
@@ -647,7 +697,7 @@ public class SortingPanel extends JPanel {
 //        quickSort.setEndIndex(quickSort.getArray().length-1);
 //        quickSort.setCompareIndex(quickSort.getArrayIndex()+1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
-        Timer timer = new Timer(1, new ActionListener() {
+        Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isSorted() || isRunning==false) {
@@ -679,7 +729,7 @@ public class SortingPanel extends JPanel {
         linearSearch.setFindX((int)searchElementsComboBox.getSelectedItem());
 //        insertdsionSort.setArrayIndex(1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
-        Timer timer = new Timer(1, new ActionListener() {
+        Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(linearSearch.getFounded() || isRunning==false) {
@@ -707,7 +757,7 @@ public class SortingPanel extends JPanel {
         binarySearch.setFindX((int)searchElementsComboBox.getSelectedItem());
 //        insertdsionSort.setArrayIndex(1);
 //        timer is taking value in milliseconds i.e 1000ms = 1s
-        Timer timer = new Timer(1, new ActionListener() {
+        Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(binarySearch.getFounded() || isRunning==false) {
