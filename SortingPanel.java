@@ -420,6 +420,7 @@ public class SortingPanel extends JPanel {
         this.add(searchElementTextField);
         this.add(searchElementsComboBox);
         this.add(linearSearchButton);
+        this.add(binarySearchButton);
 //        this.add(binarySearchButton);
 //        this.add(listOfSearchButton);
 //        this.add(listOfSearchButton1);
@@ -492,6 +493,7 @@ public class SortingPanel extends JPanel {
         arraySizesComboBox.setEnabled(false);
         searchElementsComboBox.setEnabled(false);
         linearSearchButton.setEnabled(false);
+        binarySearchButton.setEnabled(false);
     }
     public void enablingButtons() {
         startButton.setEnabled(true);
@@ -502,6 +504,7 @@ public class SortingPanel extends JPanel {
         arraySizesComboBox.setEnabled(true);
         searchElementsComboBox.setEnabled(true);
         linearSearchButton.setEnabled(true);
+        binarySearchButton.setEnabled(true);
     }
     
     public boolean isSorted() {
@@ -689,7 +692,36 @@ public class SortingPanel extends JPanel {
                     ((Timer)e.getSource()).stop();
                 } else {
                     if(isRunning) {
-                        linearSearch.checkOnlyOneItem();
+                        linearSearch.linearSearchCheckOneItem();
+                    }
+                    repaint();
+                }
+            }
+        });
+        timer.start();
+    }
+    
+    public void binarySearchAnimate() {
+        binarySearch.setStartIndex(0);
+        binarySearch.setEndIndex(array.length-1);
+        binarySearch.setFindX((int)searchElementsComboBox.getSelectedItem());
+//        insertdsionSort.setArrayIndex(1);
+//        timer is taking value in milliseconds i.e 1000ms = 1s
+        Timer timer = new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(binarySearch.getFounded() || isRunning==false) {
+//                    binarySearch.setStartIndex(Integer.MAX_VALUE);
+//                    binarySearch.setEndIndex(Integer.MAX_VALUE);
+                    binarySearch.setFindX(-1);
+                    binarySearch.setFounded(false);
+//                    isLinearSearch = false;
+//                    insertionSort.setCompareIndex(Integer.MAX_VALUE);
+//                    repaint();
+                    ((Timer)e.getSource()).stop();
+                } else {
+                    if(isRunning) {
+                        binarySearch.binarySearchCheckOneItem();
                     }
                     repaint();
                 }
@@ -781,6 +813,20 @@ public class SortingPanel extends JPanel {
                     g.setColor(Color.RED);
                     if(linearSearch.getFounded()) {
                         g.setColor(Color.GREEN);
+                    }
+                }
+            }
+            
+            if(isBinarySearch) {
+                if(i==binarySearch.getStartIndex()) {
+                    g.setColor(Color.BLUE);
+                }
+                if(i==binarySearch.getEndIndex()) {
+                    g.setColor(Color.RED);
+                }
+                if(i==binarySearch.getMidIndex()) {
+                        g.setColor(Color.GREEN);
+                    if(linearSearch.getFounded()) {
                     }
                 }
             }

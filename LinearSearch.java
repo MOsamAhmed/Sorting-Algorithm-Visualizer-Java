@@ -13,7 +13,7 @@ public class LinearSearch {
         this.array = array;
     }
     
-    public void checkOnlyOneItem() {
+    public void linearSearchCheckOneItem() {
         if(arrayIndex>=array.length) {
             founded = true;
         }

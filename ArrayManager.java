@@ -17,7 +17,7 @@ public class ArrayManager {
         Random random = new Random();
         int[] temp = new int[arrLength];
         for(int i=0; i<temp.length; i++) {
-            temp[i] = random.nextInt(541)+10; // Array can have values from 10-550.
+            temp[i] = random.nextInt(540)+11; // Array can have values from 10-550.
 //            if(temp[i]==550) {
 //                System.out.println(temp[i]);
 //            }
@@ -28,7 +28,7 @@ public class ArrayManager {
 //        int[] temp = new int[500];
 //        Random random = new Random();
         int[] temp = new int[arrLength];
-        int val = 10;
+        int val = 11;
         for(int i=0; i<temp.length; i++) {
             temp[i] = val; // Array can have values from 10-550.
             val++;

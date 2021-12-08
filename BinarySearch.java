@@ -2,28 +2,43 @@ package sortingalgorithmvisualizer;
 
 public class BinarySearch {
     private int findX;
-    private int arrayIndex;
+    private int startIndex;
+    private int endIndex;
+    private int midIndex;
     private boolean founded;
     private int[] array;
     
     public BinarySearch(int[] array) {
         findX = -1;
-        arrayIndex = Integer.MAX_VALUE;
+        startIndex = Integer.MAX_VALUE;
+        endIndex = Integer.MAX_VALUE;
+        midIndex = Integer.MAX_VALUE;
         founded = false;
         this.array = array;
     }
     
-    public void checkOnlyOneItem() {
-        if(arrayIndex>=array.length) {
-            founded = true;
-        }
-        else if(findX==array[arrayIndex]) {
-//            System.out.println(findX);
-//            System.out.println(array[arrayIndex]);
-            founded = true;
+    public void binarySearchCheckOneItem() {
+        midIndex = (startIndex+endIndex)/2;
+        if(startIndex<=endIndex) {
+            if(findX==array[midIndex]) {
+    //            System.out.println(findX);
+    //            System.out.println(array[arrayIndex]);
+//                startIndex = Integer.MAX_VALUE;
+//                endIndex = Integer.MAX_VALUE;
+                founded = true;
+            }
+            else if(array[midIndex]<findX) {
+                startIndex = midIndex + 1;
+            }
+            else {
+                endIndex = midIndex - 1;
+            }
         }
         else {
-            arrayIndex++;
+            startIndex = Integer.MAX_VALUE;
+            endIndex = Integer.MAX_VALUE;
+            midIndex = Integer.MAX_VALUE;
+            founded = true;
         }
     }
     
@@ -31,11 +46,25 @@ public class BinarySearch {
         this.array = array;
     }
     
-    public int getArrayIndex() {
-        return arrayIndex;
+    public int getStartIndex() {
+        return startIndex;
     }
-    public void setArrayIndex(int arrayIndex) {
-        this.arrayIndex = arrayIndex;
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+    
+    public int getEndIndex() {
+        return endIndex;
+    }
+    public void setEndIndex(int endIndex) {
+        this.endIndex = endIndex;
+    }
+    
+    public int getMidIndex() {
+        return midIndex;
+    }
+    public void setMidIndex(int midIndex) {
+        this.midIndex = midIndex;
     }
     
     public int getFindX() {
