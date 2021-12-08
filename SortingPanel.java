@@ -30,21 +30,32 @@ public class SortingPanel extends JPanel {
     JButton selectionSortButton = new JButton("Selection Sort");
     JButton insertionSortButton = new JButton("Insertion Sort");
     JButton quickSortButton = new JButton("Quick Sort");
+//    JButton mergeSortButton = new JButton("Merge Sort");
+    JButton linearSearchButton = new JButton("linearSearch");
+//    JButton binarySearchButton = new JButton("binarySearch");
+//    JButton listOfSearchButton = new JButton("listOfSearch");
+//    JButton listOfSearchButton1 = new JButton("listOfSearch1");
     
     JTextField arraySizeTextField;
     JComboBox arraySizesComboBox;
-    Integer[] availableArraySizes;
+    Integer[] availableArraySizesArray;
+    
+    JTextField searchElementTextField;
+    JComboBox searchElementsComboBox;
+    Integer[] searchElementsArray;
     
     private boolean isRunning;
     private boolean isBubbleSort;
     private boolean isSelectionSort;
     private boolean isInsertionSort;
     private boolean isQuickSort;
+    private boolean isLinearSearch;
     
     private BubbleSort bubbleSort;
     private SelectionSort selectionSort;
     private InsertionSort insertionSort;
     private QuickSort quickSort;
+    private LinearSearch linearSearch;
     
 //    Constructor
     public SortingPanel() {
@@ -59,6 +70,7 @@ public class SortingPanel extends JPanel {
         selectionSort = new SelectionSort(array);
         insertionSort = new InsertionSort(array);
         quickSort = new QuickSort(array);
+        linearSearch = new LinearSearch(array);
         
         startButton.setBackground(Color.WHITE);
         startButton.setFocusPainted(false);
@@ -85,8 +97,15 @@ public class SortingPanel extends JPanel {
                         disablingButtons();
                         quickSortAnimate();
                     }
+                    else if(isLinearSearch) {
+                        disablingButtons();
+                        linearSearchAnimate();
+                    }
                     else {
-                        JOptionPane.showMessageDialog(null, "Select a sorting algorithm first!", "Error", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null,
+                                "Select a sorting or searching method first!",
+                                "Error",
+                                JOptionPane.INFORMATION_MESSAGE);
 //                        JOptionPane.showMessageDialog(startButton, e, TOOL_TIP_TEXT_KEY, HEIGHT);
                     }
                 }
@@ -107,6 +126,7 @@ public class SortingPanel extends JPanel {
                 selectionSort = new SelectionSort(array);
                 insertionSort = new InsertionSort(array);
                 quickSort = new QuickSort(array);
+                linearSearch = new LinearSearch(array);
 //                arrayIndex = 0;
 //                bubbleSortCompareIndex = Integer.MAX_VALUE;
 //                selectionSortMinIndex = Integer.MAX_VALUE;
@@ -118,6 +138,7 @@ public class SortingPanel extends JPanel {
                 isSelectionSort = false;
                 isInsertionSort = false;
                 isQuickSort = false;
+                isLinearSearch = false;
                 enablingButtons();
                 repaint();
             }
@@ -133,9 +154,11 @@ public class SortingPanel extends JPanel {
                     isSelectionSort = false;
                     isInsertionSort = false;
                     isQuickSort = false;
+                    isLinearSearch = false;
                     selectionSortButton.setEnabled(true);
                     insertionSortButton.setEnabled(true);
                     quickSortButton.setEnabled(true);
+                    linearSearchButton.setEnabled(true);
                     isBubbleSort = true;
                     bubbleSortButton.setEnabled(false);
                 }
@@ -155,9 +178,11 @@ public class SortingPanel extends JPanel {
                     isBubbleSort = false;
                     isInsertionSort = false;
                     isQuickSort = false;
+                    isLinearSearch = false;
                     bubbleSortButton.setEnabled(true);
                     insertionSortButton.setEnabled(true);
                     quickSortButton.setEnabled(true);
+                    linearSearchButton.setEnabled(true);
                     isSelectionSort = true;
                     selectionSortButton.setEnabled(false);
                 }
@@ -177,9 +202,11 @@ public class SortingPanel extends JPanel {
                     isBubbleSort = false;
                     isSelectionSort = false;
                     isQuickSort = false;
+                    isLinearSearch = false;
                     bubbleSortButton.setEnabled(true);
                     selectionSortButton.setEnabled(true);
                     quickSortButton.setEnabled(true);
+                    linearSearchButton.setEnabled(true);
                     isInsertionSort = true;
                     insertionSortButton.setEnabled(false);
                 }
@@ -199,11 +226,37 @@ public class SortingPanel extends JPanel {
                     isBubbleSort = false;
                     isSelectionSort = false;
                     isInsertionSort = false;
+                    isLinearSearch = false;
                     bubbleSortButton.setEnabled(true);
                     selectionSortButton.setEnabled(true);
                     insertionSortButton.setEnabled(true);
+                    linearSearchButton.setEnabled(true);
                     isQuickSort = true;
                     quickSortButton.setEnabled(false);
+                }
+                catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+        
+        linearSearchButton.setBackground(Color.WHITE);
+        linearSearchButton.setFocusPainted(false);
+//        linearSearchButton.setBorderPainted(false);
+        linearSearchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    isBubbleSort = false;
+                    isSelectionSort = false;
+                    isInsertionSort = false;
+                    isQuickSort = false;
+                    bubbleSortButton.setEnabled(true);
+                    selectionSortButton.setEnabled(true);
+                    insertionSortButton.setEnabled(true);
+                    quickSortButton.setEnabled(true);
+                    isLinearSearch = true;
+                    linearSearchButton.setEnabled(false);
                 }
                 catch (Exception exception) {
                     exception.printStackTrace();
@@ -218,8 +271,8 @@ public class SortingPanel extends JPanel {
         arraySizeTextField.setForeground(Color.WHITE);
         arraySizeTextField.setHighlighter(null);
         
-        availableArraySizes = setArraySizeComboBox();
-        arraySizesComboBox = new JComboBox(availableArraySizes);
+        availableArraySizesArray = setArraySizeComboBox();
+        arraySizesComboBox = new JComboBox(availableArraySizesArray);
         arraySizesComboBox.setSelectedIndex(0);
         arraySizesComboBox.addActionListener(new ActionListener() {
             @Override
@@ -231,6 +284,36 @@ public class SortingPanel extends JPanel {
                     selectionSort = new SelectionSort(array);
                     insertionSort = new InsertionSort(array);
                     quickSort = new QuickSort(array);
+                    linearSearch = new LinearSearch(array);
+                    repaint();
+//                    System.out.println(arraySizesComboBox.getSelectedItem());
+                }
+                catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+        
+        searchElementTextField = new JTextField("Search Value");
+        searchElementTextField.setBackground(new Color(31,31,31));
+        searchElementTextField.setEditable(false);
+        searchElementTextField.setFont(startButton.getFont());
+        searchElementTextField.setForeground(Color.WHITE);
+        searchElementTextField.setHighlighter(null);
+        
+        searchElementsArray = setSearchElementsComboBox();
+        searchElementsComboBox = new JComboBox(searchElementsArray);
+        searchElementsComboBox.setSelectedIndex(0);
+        searchElementsComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+//                    array = ArrayManager.randomArrayGenerator((int)searchElementsComboBox.getSelectedItem());
+//                    
+//                    bubbleSort = new BubbleSort(array);
+//                    selectionSort = new SelectionSort(array);
+//                    insertionSort = new InsertionSort(array);
+//                    quickSort = new QuickSort(array);
                     repaint();
 //                    System.out.println(arraySizesComboBox.getSelectedItem());
                 }
@@ -246,8 +329,17 @@ public class SortingPanel extends JPanel {
         this.add(selectionSortButton);
         this.add(insertionSortButton);
         this.add(quickSortButton);
+//        this.add(mergeSortButton);
+        
         this.add(arraySizeTextField);
         this.add(arraySizesComboBox);
+        
+        this.add(searchElementTextField);
+        this.add(searchElementsComboBox);
+        this.add(linearSearchButton);
+//        this.add(binarySearchButton);
+//        this.add(listOfSearchButton);
+//        this.add(listOfSearchButton1);
 //        System.out.println(
 //                startButton.getX() +" "
 //                + startButton.getX() +" "
@@ -282,6 +374,14 @@ public class SortingPanel extends JPanel {
         return temp;
 //        System.out.println(num);
     }
+    private Integer[] setSearchElementsComboBox() {
+        Integer[] temp = new Integer[550];
+        for(int i=0; i<temp.length; i++) {
+            temp[i] = i+1;
+        }
+        return temp;
+//        System.out.println(num);
+    }
     
     public void disablingButtons() {
         startButton.setEnabled(false);
@@ -290,6 +390,8 @@ public class SortingPanel extends JPanel {
         insertionSortButton.setEnabled(false);
         quickSortButton.setEnabled(false);
         arraySizesComboBox.setEnabled(false);
+        searchElementsComboBox.setEnabled(false);
+        linearSearchButton.setEnabled(false);
     }
     public void enablingButtons() {
         startButton.setEnabled(true);
@@ -298,6 +400,8 @@ public class SortingPanel extends JPanel {
         insertionSortButton.setEnabled(true);
         quickSortButton.setEnabled(true);
         arraySizesComboBox.setEnabled(true);
+        searchElementsComboBox.setEnabled(true);
+        linearSearchButton.setEnabled(true);
     }
     
     public boolean isSorted() {
@@ -467,6 +571,33 @@ public class SortingPanel extends JPanel {
         timer.start();
     }
     
+    public void linearSearchAnimate() {
+        linearSearch.setArrayIndex(0);
+        linearSearch.setFindX((int)searchElementsComboBox.getSelectedItem());
+//        insertdsionSort.setArrayIndex(1);
+//        timer is taking value in milliseconds i.e 1000ms = 1s
+        Timer timer = new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(linearSearch.getFounded() || isRunning==false) {
+                    linearSearch.setArrayIndex(Integer.MAX_VALUE);
+                    linearSearch.setFindX(-1);
+                    linearSearch.setFounded(false);
+//                    isLinearSearch = false;
+//                    insertionSort.setCompareIndex(Integer.MAX_VALUE);
+//                    repaint();
+                    ((Timer)e.getSource()).stop();
+                } else {
+                    if(isRunning) {
+                        linearSearch.checkOnlyOneItem();
+                    }
+                    repaint();
+                }
+            }
+        });
+        timer.start();
+    }
+    
 //    public void bubbleSortAnimate() {
 //        bubbleSortCompareIndex = 0;
 ////        timer is taking value in milliseconds i.e 1000ms = 1s
@@ -543,6 +674,15 @@ public class SortingPanel extends JPanel {
 //                if(i==insertionSort.getCompareIndex() || i==insertionSort.getCompareIndex()+1) {
 //                    g.setColor(Color.RED);
 //                }
+            }
+            
+            if(isLinearSearch) {
+                if(i==linearSearch.getArrayIndex()) {
+                    g.setColor(Color.RED);
+                    if(linearSearch.getFounded()) {
+                        g.setColor(Color.GREEN);
+                    }
+                }
             }
             
 //            g.fillRect(i*15, 600-array[i], 14, array[i]);
