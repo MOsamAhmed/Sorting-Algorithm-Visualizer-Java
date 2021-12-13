@@ -16,7 +16,7 @@ public class MyFrame extends JFrame {
     ImageIcon img = new ImageIcon("F:\\WORKING TREE\\JAVA PROGRAMMING\\UNI PROJECTS\\SortingAlgorithmVisualizer\\src\\sortingalgorithmvisualizer\\imgs\\icon.png");
     
     public MyFrame() {
-        this.setTitle("Sorting Visualizer");
+        this.setTitle("Sorting & Searching Algorithms Visualizer");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setPreferredSize(new Dimension(1200, 675));
         this.getContentPane().add(sortingPanel);

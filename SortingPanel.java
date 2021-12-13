@@ -24,9 +24,7 @@ public class SortingPanel extends JPanel {
     
     private static final long serialVersionUID = 1L;
     
-    private Random random = new Random();
-    private int[] array = new int[50];
-
+    private int[] array;
     
     JButton startButton = new JButton("Start");
     JButton resetButton = new JButton("Reset");
